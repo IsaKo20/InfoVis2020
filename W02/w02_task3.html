@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta>
+    <title>W02: vector task3 </title>
+  </head>
+  <body>
+    <label for="vectorForm0">v0</label>
+    <label for="vecx0">x0:</label>
+    <input type="number" id="vecx0"/>
+    <label for="vecy0">y0:</label>
+    <input type="number" id="vecy0"/>
+    <label for="vecz0">z0:</label>
+    <input type="number" id="vecz0"/>
+    <br>
+    <label for="vectorForm1">v1</label>
+    <label for="vecx1">x1:</label>
+    <input type="number" id="vecx1"/>
+    <label for="vecy1">y1:</label>
+    <input type="number" id="vecy1"/>
+    <label for="vecz1">z1:</label>
+    <input type="number" id="vecz1"/>
+    <br>
+    <label for="vectorForm2">v2</label>
+    <label for="vecx2">x2:</label>
+    <input type="number" id="vecx2"/>
+    <label for="vecy1">y2:</label>
+    <input type="number" id="vecy2"/>
+    <label for="vecz2">z2:</label>
+    <input type="number" id="vecz2"/>
+    <br>
+    <input type="button"
+           onclick="e()"
+           value="Calculate area"/>
+    <script src="vec3.js"></script>
+    <script>
+        var x0 = document.getElementById("vecx0").value;
+        var y0 = document.getElementById("vecy0").value;
+        var z0 = document.getElementById("vecz0").value;
+        var x1 = document.getElementById("vecx1").value;
+        var y1 = document.getElementById("vecy1").value;
+        var z1 = document.getElementById("vecz1").value;
+        var x2 = document.getElementById("vecx2").value;
+        var y2 = document.getElementById("vecy2").value;
+        var z2 = document.getElementById("vecz2").value;
+        var v0 = new Vec3(x0, y0, z0);
+        var v1 = new Vec3(x1, y1, z1);
+        var v2 = new Vec3(x2, y2, z2);
+
+      document.write(AreaOfTriangle(v0,v1,v2));
+      function e() { return AreaOfTriangle(v0,v1,v2);}
+    </script>
+  </body>
+</html>
