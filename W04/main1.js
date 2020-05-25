@@ -124,39 +124,14 @@ function main1()
 
     var cube = new THREE.Mesh( geometry, material );
     scene.add( cube );
-    /*var triangle1 = new THREE.Mesh( geometry.faces[0], material)
-    scene.add( triangle1  );
-    var triangle2 = new THREE.Mesh( geometry.faces[1], material)
-    scene.add( triangle2 );*/
-    /*var triangle1 = new THREE.Mesh( geometry1, material1 );
-    scene.add( triangle1 );
-    var triangle2 = new THREE.Mesh( geometry2, material2 );
-    scene.add( triangle2 );
-    var triangle3 = new THREE.Mesh( geometry3, material3 );
-    scene.add( triangle3 );
-    var triangle4 = new THREE.Mesh( geometry4, material4 );
-    scene.add( triangle4 );
-    var triangle5 = new THREE.Mesh( geometry5, material5 );
-    scene.add( triangle5 );
-    var triangle6 = new THREE.Mesh( geometry6, material6 );
-    scene.add( triangle6 );
-    var triangle7 = new THREE.Mesh( geometry7, material7 );
-    scene.add( triangle7 );
-    var triangle8 = new THREE.Mesh( geometry8, material8 );
-    scene.add( triangle8 );
-    var triangle9 = new THREE.Mesh( geometry9, material9 );
-    scene.add( triangle9 );
-    var triangle10 = new THREE.Mesh( geometry10, material10 );
-    scene.add( triangle10 );
-    var triangle11 = new THREE.Mesh( geometry11, material11 );
-    scene.add( triangle11 );*/
+
     loop();
 
     function loop()
     {
         requestAnimationFrame( loop );
-        cube.rotation.x += 0.001;
-        cube.rotation.y += 0.001;
+        cube.rotation.x += 0.002;
+        cube.rotation.y += 0.002;
         renderer.render( scene, camera );
     }
 }
