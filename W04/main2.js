@@ -4,7 +4,7 @@ function main2()
     var height = 500;
 
     var scene = new THREE.Scene();
-
+    
     var fov = 45;
     var aspect = width / height;
     var near = 1;
@@ -12,13 +12,23 @@ function main2()
     var camera = new THREE.PerspectiveCamera( fov, aspect, near, far );
     camera.position.set( 0, 0, 5 );
     scene.add( camera );
-    //const mouse = new THREE.Vector2();
-    var canvas = document.querySelector('#myCanvas');
 
-    var renderer = new THREE.WebGLRenderer();
+    //const mouse = new THREE.Vector2();
+    const canvas = document.getElementById('myCanvas');
+    canvas.addEventListener( 'mousedown', mouse_down_event);
+    const raycaster = new THREE.Raycaster();
+
+    var light = new THREE.PointLight(0xfffff);
+    light.position.set( 5, 5, 5 );
+    scene.add( light );
+
+    var renderer = new THREE.WebGLRenderer({
+      canvas: document.getElementById('myCanvas')
+    });
     renderer.setSize( width, height );
     //renderer.setPicelRatio(window.devicePixelRatio);
     document.body.appendChild( renderer.domElement );
+    const mouse = new THREE.Vector2(-2, -2);
 
     var vertices = [
         [ -1,  1, 0 ], // v0
@@ -124,37 +134,46 @@ function main2()
     var cube = new THREE.Mesh( geometry, material );
     scene.add( cube );
 
-    var light = new THREE.PointLight(0xffffff);
-    light.position.set( 5, 5, 5 );
-    scene.add( light );
 
-    document.addEventListener( 'mousedown', mouse_down_event);
-    loop();
     //add a mouse_down_event
-    var x_win, y_win, x_NDC, y_NDC;
-
+    //var x_win, y_win, x_NDC, y_NDC;
+    //var origin, direction;
     function mouse_down_event( event )
     {
       //add to here!
       //var rect = event.target.getBoundingClientRect();
+      /*console.log("click")
        x_win = event.clientX;
-       y_win = event.clientY;
+       y_win = event.clientY;*/
       //return x_win,y_win;
-      var vx = renderer.domElement.offsetLeft;
+      /*var vx = renderer.domElement.offsetLeft;
       var vy = renderer.domElement.offsetTop;
       var vw = renderer.domElement.width;
       var vh = renderer.domElement.height;
       var x_NDC = 2 * ( x_win - vx ) / vw - 1;
       var y_NDC = -( 2 * ( y_win - vy ) / vh - 1 );
+      var p_NDC = new THREE.Vector3( x_NDC, y_NDC, 1 );
+      var p_wld = p_NDC.unproject( camera );*/
+      //change this!
+      //var origin = camera.position;
+      //var origin = p_NDC;
+      //var direction = p_NDC.sub(origin).normalize();
+      //var direction = p_wld;
+        const element = event.currentTarget;
+
+        const x = event.clientX - element.offsetLeft;
+        const y = event.clientY - element.offsetTop;
+
+        const w = element.offsetWidth;
+        const h = element.offsetHeight;
+
+        mouse.x = (x / w) * 2 - 1;
+        mouse.y = -(y / h) * 2 + 1;
     }
 
 
 
-    var p_NDC = new THREE.Vector3( x_NDC, y_NDC, 1 );
-    var p_wld = p_NDC.unproject( camera );
-    //change this!
-    var origin = camera.position;
-    var direction = p_NDC.sub(origin).normalize();
+    loop();
 
 
     function loop()
@@ -163,15 +182,19 @@ function main2()
         cube.rotation.x += 0.005;
         cube.rotation.y += 0.005;
 
-        var raycaster = new THREE.Raycaster( origin, direction );
-        var intersects = raycaster.intersectObject( cube );
+        //var raycaster = new THREE.Raycaster( origin, direction );
+        raycaster.setFromCamera(mouse,camera);
+        const intersects = raycaster.intersectObject( cube );
         if ( intersects.length > 0 )
         {
-            intersects[0].face.color.setRGB( 1, 0, 0 );
+            intersects[0].face.color.setRGB( 0, 0, 1 );
             intersects[0].object.geometry.colorsNeedUpdate = true;
         }
+        //mouse.x = -2;
+        //mouse.y = -2;
         renderer.render( scene, camera );
         requestAnimationFrame( loop );
+
     }
 
 
