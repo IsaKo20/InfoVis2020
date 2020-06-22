@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<!-- saved from url=(0059)https://www.d3-graph-gallery.com/graph/histogram_basic.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <script src="./Basic histogram in d3_files/f(6).txt"></script><script src="./Basic histogram in d3_files/osd.js.ダウンロード"></script><script type="text/javascript" async="" src="./Basic histogram in d3_files/analytics.js.ダウンロード"></script><script src="./Basic histogram in d3_files/f(7).txt" id="google_shimpl"></script><script async="" src="./Basic histogram in d3_files/f(8).txt"></script>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-3523953066677938",
+            enable_page_level_ads: true
+       });
+  </script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="./Basic histogram in d3_files/js"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-79254642-6');
+  </script>
+
+  
+  <title>Basic histogram in d3.js</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="This post shows how to use d3.js to create a very basic histogram, providing explanations and reproducible code.">
+  <meta name="keywords" content="Data, Dataviz, Datavisualization, Javascript, JS, d3.js, boxplot">
+  <meta name="author" content="Yan Holtz">
+  <link rel="icon" href="https://www.d3-graph-gallery.com/img/logo/D3_single_small.png">
+
+  <meta property="og:title" content="Basic histogram in d3.js">
+  <meta property="og:image" content="https://www.d3-graph-gallery.com/img/logo/D3_full_medium.png">
+  <meta property="og:description" content="This post shows how to use d3.js to create a very basic histogram, providing explanations and reproducible code.">
+
+  <!-- Bootstrap core CSS -->
+  <link href="./Basic histogram in d3_files/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="./Basic histogram in d3_files/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+  <!-- Custom styles for this template -->
+  <link href="./Basic histogram in d3_files/agency.css" rel="stylesheet">
+
+  <!-- PRISM -->
+  <script src="./Basic histogram in d3_files/prism.js.ダウンロード"></script><link rel="preload" href="./Basic histogram in d3_files/f(9).txt" as="script"><script type="text/javascript" src="./Basic histogram in d3_files/f(9).txt"></script><link rel="preload" href="./Basic histogram in d3_files/f(10).txt" as="script"><script type="text/javascript" src="./Basic histogram in d3_files/f(10).txt"></script>
+  <link href="./Basic histogram in d3_files/prism.css" rel="stylesheet">
+
+  <!-- D3.JS v4 -->
+  <script src="./Basic histogram in d3_files/d3.v4.js.ダウンロード"></script>
+
+  <!-- JQUERY -->
+  <script src="./Basic histogram in d3_files/jquery.min.js.ダウンロード"></script>
+
+  <!-- HTML TO CANVAS -->
+  <script src="./Basic histogram in d3_files/html2canvas.js.ダウンロード"></script>
+
+  <!-- Function to parse html and js code chunks made by Yan Holtz -->
+  <script src="./Basic histogram in d3_files/myParser.js.ダウンロード"></script>
+
+</head>
+
+
+
+
+
+
+<body id="page-top">
+
+
+<!-- THIS ALLOWS TO INSERT THE MENU THAT IS STORED IN A MENU.HTML FILE-->
+<nav class="navbar navbar-expand-lg fixed-top navbar-shrink" id="mainNav"><div class="container">
+  <a href="https://www.d3-graph-gallery.com/index.html">← D3.js Graph Gallery</a>
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+    Menu
+    <i class="fa fa-bars"></i>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarResponsive">
+    <ul class="navbar-nav text-uppercase ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" href="https://www.d3-graph-gallery.com/graph/histogram_basic.html#researchModal"><i class="fa fa-search"></i></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" href="https://www.d3-graph-gallery.com/graph/histogram_basic.html#LogoMenu">Chart types</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link" href="https://www.d3-graph-gallery.com/graph/histogram_basic.html#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Quick
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <p class="menuTitle"><i>Basics</i></p>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="https://www.d3-graph-gallery.com/intro_d3js.html">Intro to d3</a>
+          <a class="dropdown-item" href="https://www.d3-graph-gallery.com/graph/shape.html">Shape</a>
+          <a class="dropdown-item" href="https://www.d3-graph-gallery.com/graph/basic_datamanipulation.html">Data wrangling</a>
+          <p class="menuTitle"><i>Customize</i></p>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="https://www.d3-graph-gallery.com/graph/custom_axis.html">Axis</a>
+          <a class="dropdown-item" href="https://www.d3-graph-gallery.com/graph/custom_color.html">Color</a>
+          <a class="dropdown-item" href="https://www.d3-graph-gallery.com/graph/custom_theme.html">Themes</a>
+          <a class="dropdown-item" href="https://www.d3-graph-gallery.com/graph/custom_legend.html">Legend</a>
+          <a class="dropdown-item" href="https://www.d3-graph-gallery.com/graph/custom_responsive.html">Responsiveness</a>
+          <a class="dropdown-item" href="https://www.d3-graph-gallery.com/graph/custom_annotation.html">Annotation</a>
+          <p class="menuTitle"><i>Interactivity</i></p>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="https://www.d3-graph-gallery.com/graph/interactivity_tooltip.html">Tooltip</a>
+          <a class="dropdown-item" href="https://www.d3-graph-gallery.com/graph/interactivity_button.html">Button</a>
+          <a class="dropdown-item" href="https://www.d3-graph-gallery.com/graph/interactivity_zoom.html">Zoom</a>
+          <a class="dropdown-item" href="https://www.d3-graph-gallery.com/graph/interactivity_brush.html">Brushing</a>
+          <a class="dropdown-item" href="https://www.d3-graph-gallery.com/graph/interactivity_transition.html">Transition</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://www.d3-graph-gallery.com/all.html">ALL</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://www.r-graph-gallery.com/">R</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://www.python-graph-gallery.com/">Python</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" href="https://www.data-to-viz.com/">Data to viz</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" href="https://www.yan-holtz.com/">Who am I</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" href="https://www.d3-graph-gallery.com/about.html">About</a>
+      </li>
+    </ul>
+  </div>
+</div>
+</nav>
+<script>
+$(function(){
+  $("#mainNav").load("../html_chunk/menu.html");
+});
+</script><ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" style="display: none !important;"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:0px;margin:0;padding:0;position:relative;visibility:visible;width:0px;background-color:transparent;"><ins id="aswift_0_anchor" style="display:block;border:none;height:0px;margin:0;padding:0;position:relative;visibility:visible;width:0px;background-color:transparent;"><iframe id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;border:0;width:undefinedpx;height:undefinedpx;" sandbox="allow-forms allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" frameborder="0" src="./Basic histogram in d3_files/ads.html" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" data-google-container-id="a!0" data-load-complete="true"></iframe></ins></ins></ins>
+
+<!-- THIS ALLOWS TO INSERT THE MODAL OF THE MENU THAT IS STORED IN A MENU_MODAL.HTML FILE-->
+<div id="modal_menu_insertion"><!-- This document provide the code for 2 modals related to the menu: i/ the modal showing all chart types ii/ the search bar utility -->
+
+<!-- Modal menu: one icon per chart type with black background -->
+<div class="portfolio-modal modal fade" id="LogoMenu" tabindex="-1" role="dialog" aria-hidden="true" style="background-color: black;">
+  <div class="modal-dialog h-100 modal-dialog-centered" style="width: 80%; max-width: 917px">
+    <div class="modal-content">
+      <div class="close-modal" data-dismiss="modal" style="background-color: black;">
+        <a href="https://www.d3-graph-gallery.com/graph/histogram_basic.html"><p style="color: white; text-align: right; font-size: 23px">✕</p></a>
+      </div>
+      <div class="container" style="background-color: black;">
+        <div class="row">
+            <div class="modal-body">
+
+               <a href="https://www.d3-graph-gallery.com/violin.html">
+                 <img class="img-fluid imageOfMenu imageOfMenu" src="./Basic histogram in d3_files/Violin150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/density.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Density150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/histogram.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Histogram150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/boxplot.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Box1150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/ridgeline.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Joyplot150.png" alt="">
+               </a>
+
+               <a href="https://www.d3-graph-gallery.com/scatter.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/ScatterPlot150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/heatmap">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Heatmap150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/correlogram.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Correlogram150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/bubble.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/BubblePlot150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/connectedscatter.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/ScatterConnected150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/density2d.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/2dDensity150.png" alt="">
+               </a>
+
+               <a href="https://www.d3-graph-gallery.com/barplot.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Bar150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/spider.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Spider150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/wordcloud.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Wordcloud150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/parallel.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Parallel1150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/lollipop.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Lollipop150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/circular_barplot.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/CircularBarplot150.png" alt="">
+               </a>
+
+               <a href="https://www.d3-graph-gallery.com/treemap.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Tree150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/donut.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Doughnut150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/pie.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Pie150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/dendrogram.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Dendrogram150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/circularpacking.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/CircularPacking150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/sunburst.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Sunburst150.png" alt="">
+               </a>
+
+               <a href="https://www.d3-graph-gallery.com/line.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Line150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/area.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Area150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/stackedarea.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/StackedArea150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/streamgraph.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Stream150.png" alt="">
+               </a>
+
+               <a href="https://www.d3-graph-gallery.com/backgroundmap.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Map150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/choropleth.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Choropleth150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/hexbinmap.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/MapHexbin150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/cartogram.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Cartogram150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/connection.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/ConnectedMap150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/bubblemap.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/BubbleMap150.png" alt="">
+               </a>
+
+               <a href="https://www.d3-graph-gallery.com/chord.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Chord150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/network.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Network150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/sankey.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Sankey150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/arc.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Arc150.png" alt="">
+               </a><a href="https://www.d3-graph-gallery.com/bundle.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Bundle150.png" alt="">
+               </a>
+
+              <a href="https://www.d3-graph-gallery.com/intro_d3js.html">
+                  <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Basic150_black.png" alt="">
+              </a>
+              <a href="https://www.d3-graph-gallery.com/interactivity.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/anim150.gif" alt="">
+              </a>
+              <a href="https://www.d3-graph-gallery.com/graph/shape.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Shapehelper150_black.png" alt="">
+              </a>
+              <a href="https://www.data-to-viz.com/caveats">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Bad150.png" alt="">
+              </a>
+              <a href="https://www.d3-graph-gallery.com/custom.html">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/Colours150.png" alt="">
+              </a>
+              <a href="https://www.r-graph-gallery.com/portfolio/data-art/">
+                 <img class="img-fluid imageOfMenu" src="./Basic histogram in d3_files/DataArt1150.png" alt="">
+              </a>
+
+              <span>X</span>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<!-- Research Bar Modal -->
+<div class="modal fade" id="researchModal" tabindex="-1" role="dialog" aria-hidden="true" style="margin-right: 20px; margin-left: 20px">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 1000px">
+    <div class="modal-content" style="min-height: 400px">
+      <div class="close-modal" data-dismiss="modal">
+        <a href="https://www.d3-graph-gallery.com/graph/histogram_basic.html"><p style="color: #b8b8b8; padding-right: 15px; padding-top: 5px; text-align: right; font-size: 23px">✕</p></a>
+      </div>
+      <div class="container">
+        <div class="row">
+            <div class="modal-body">
+              <!-- Project Details Go Here -->
+               <div style="margin-top: 120px; margin-bottom: 120px">
+                  <center>
+                    <input id="stringToSearch" type="text" name="usrname" value="d3.extent" style="  outline: 0; border-width: 0 0 2px; border-color: #b35900 !important;">
+                    <button id="researchSubmitButton" class="btn btn-secondary btn-md text-uppercase" type="button">Submit</button>
+                  </center>
+                </div>
+               <div id="resultSearch"></div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="./Basic histogram in d3_files/d3.v4.js.ダウンロード"></script>
+<script>
+// A function that returns a list of interesting pages for the query
+function returnPages() {
+
+  // get the text that must been searched
+  var toSearch = d3.select("#stringToSearch").property("value")
+  var address = "https://api.github.com/search/code?q=%22" + toSearch + "%22+path:graph+repo:holtzy/D3-graph-gallery"
+
+  // Do the request to the gthub API
+  d3.request(address)
+    .mimeType("application/vnd.github.v3.text-match+json")
+    .response(function(xhr) {
+      var data = JSON.parse(xhr.responseText);
+
+      // Div where I add the code
+      div = d3.select("#resultSearch")
+
+      // Erase the content of the div
+      div.html("")
+
+      // If no result, display a no result message
+      if(data.items.length==0){
+        div.html("<center><p>😔<i>No result found, sorry...</i>😔</p></center>")
+      }
+
+      // For each result item, add a section
+      div
+        .selectAll("resultItems")
+        .data(data.items)
+        .enter()
+          .append("div")
+          .html(function(d){
+            // Url to redirect to
+            url = "https://www.d3-graph-gallery.com/graph/" + d.name
+
+            // Code selection: if 2 entries, keep only the second one.
+            initialCode = d.text_matches[d.text_matches.length - 1].fragment
+            cleanCode = initialCode
+              .replace("\n", "<br>")
+              .replace("<li>", "")
+              .replace(toSearch, "<span style='background-color: yellow'>"+toSearch+'</span>')
+            codeReady = "<p class='codeResearch'>....." + cleanCode + ".....</p>"
+            return ("<br><br><a href=" + url + ">&rarr; " + d.name + "</a>" + "<br>" + codeReady)
+          })
+    }).get()
+
+  }
+
+// When the submit button is triggered, run the function
+d3.select("#researchSubmitButton").on("click", returnPages);
+
+// If the 'Enter' key is pressed, trigger the function as well
+var input = document.getElementById("stringToSearch");
+input.addEventListener("keyup", function(event) {
+  event.preventDefault();
+  if (event.keyCode === 13) {
+    document.getElementById("researchSubmitButton").click();
+  }
+});
+
+</script>
+</div>
+<script>
+$(function(){
+  $("#modal_menu_insertion").load("../html_chunk/menu_modal.html");
+});
+</script>
+
+
+<!-- Header -->
+<header class="masthead">
+  <div class="textlanding">
+      <h1>Most basic histogram in d3.js</h1>
+      <hr class="short_hr">
+      <br>
+      <ul class="list-inline social-buttons">
+        <li class="list-inline-item">
+          <a href="https://twitter.com/R_Graph_Gallery">
+            <i class="fa fa-twitter"></i>
+          </a>
+        </li>
+        <li class="list-inline-item social-buttons">
+          <a href="https://github.com/holtzy">
+            <i class="fa fa-github" style="color: white"></i>
+          </a>
+        </li>
+        <li class="list-inline-item social-buttons">
+          <a href="https://www.linkedin.com/in/yan-holtz-2477534a/">
+            <i class="fa fa-linkedin"></i>
+          </a>
+        </li>
+        <li class="list-inline-item social-buttons">
+          <a href="https://www.yan-holtz.com/">
+            <i class="fa fa-home"></i>
+          </a>
+        </li>
+      </ul>
+      <br><br>
+      <p style="max-width: 700px; margin: auto">This post describes how to build a very basic <a href="https://www.d3-graph-gallery.com/histogram.html">histogram</a> with d3.js. Only one category is represented, to simplify the code as much as possible. You can see many other examples in the <a href="https://www.d3-graph-gallery.com/histogram.html">histogram section</a> of the gallery. Learn more about the theory of histogram in <a href="https://www.data-to-viz.com/graph/histogram.html">data-to-viz.com</a>.</p>
+      <br>
+      <a class="btn btn-secondary btn-md text-uppercase" href="https://www.d3-graph-gallery.com/histogram.html">Histogram section</a>
+      <button class="btn btn-secondary btn-md text-uppercase" onclick="myCodeDownload(&#39;chart_example_from_d3-graph-gallery.html&#39;, &#39;code&#39;, &#39;codejs&#39;)">Download code</button>
+  </div>
+</header>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="bg" style="padding-top: 20px; padding-bottom: 20px">
+<div class="container">
+  <div class="row">
+
+<!-- ==================== GRAPH SECTION = WHERE THE GRAPH APPEARS ==================== -->
+
+  <div class="col-lg-5 .align-middle">
+    <div style="position: -webkit-sticky; position: sticky; top: 120px">
+      <div class="bg-light" id="result">
+
+
+<!-- Load d3.js -->
+<script src="./Basic histogram in d3_files/d3.v4.js(1).ダウンロード"></script>
+
+<!-- Create a div where the graph will take place -->
+<div id="my_dataviz"><svg width="460" height="400"><g transform="translate(40,10)"><g transform="translate(0,360)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"><path class="domain" stroke="#000" d="M0.5,6V0.5H250.5V6"></path><g class="tick" opacity="1" transform="translate(0.5,0)"><line stroke="#000" y2="6"></line><text fill="#000" y="9" dy="0.71em">0</text></g><g class="tick" opacity="1" transform="translate(25.5,0)"><line stroke="#000" y2="6"></line><text fill="#000" y="9" dy="0.71em">10</text></g><g class="tick" opacity="1" transform="translate(50.5,0)"><line stroke="#000" y2="6"></line><text fill="#000" y="9" dy="0.71em">20</text></g><g class="tick" opacity="1" transform="translate(75.5,0)"><line stroke="#000" y2="6"></line><text fill="#000" y="9" dy="0.71em">30</text></g><g class="tick" opacity="1" transform="translate(100.5,0)"><line stroke="#000" y2="6"></line><text fill="#000" y="9" dy="0.71em">40</text></g><g class="tick" opacity="1" transform="translate(125.5,0)"><line stroke="#000" y2="6"></line><text fill="#000" y="9" dy="0.71em">50</text></g><g class="tick" opacity="1" transform="translate(150.5,0)"><line stroke="#000" y2="6"></line><text fill="#000" y="9" dy="0.71em">60</text></g><g class="tick" opacity="1" transform="translate(175.5,0)"><line stroke="#000" y2="6"></line><text fill="#000" y="9" dy="0.71em">70</text></g><g class="tick" opacity="1" transform="translate(200.5,0)"><line stroke="#000" y2="6"></line><text fill="#000" y="9" dy="0.71em">80</text></g><g class="tick" opacity="1" transform="translate(225.5,0)"><line stroke="#000" y2="6"></line><text fill="#000" y="9" dy="0.71em">90</text></g><g class="tick" opacity="1" transform="translate(250.5,0)"><line stroke="#000" y2="6"></line><text fill="#000" y="9" dy="0.71em">100</text></g></g><g fill="none" font-size="10" font-family="sans-serif" text-anchor="end"><path class="domain" stroke="#000" d="M-6,360.5H0.5V0.5H-6"></path><g class="tick" opacity="1" transform="translate(0,360.5)"><line stroke="#000" x2="-6"></line><text fill="#000" x="-9" dy="0.32em">0</text></g><g class="tick" opacity="1" transform="translate(0,322.92171189979126)"><line stroke="#000" x2="-6"></line><text fill="#000" x="-9" dy="0.32em">50</text></g><g class="tick" opacity="1" transform="translate(0,285.34342379958247)"><line stroke="#000" x2="-6"></line><text fill="#000" x="-9" dy="0.32em">100</text></g><g class="tick" opacity="1" transform="translate(0,247.7651356993737)"><line stroke="#000" x2="-6"></line><text fill="#000" x="-9" dy="0.32em">150</text></g><g class="tick" opacity="1" transform="translate(0,210.18684759916493)"><line stroke="#000" x2="-6"></line><text fill="#000" x="-9" dy="0.32em">200</text></g><g class="tick" opacity="1" transform="translate(0,172.60855949895614)"><line stroke="#000" x2="-6"></line><text fill="#000" x="-9" dy="0.32em">250</text></g><g class="tick" opacity="1" transform="translate(0,135.0302713987474)"><line stroke="#000" x2="-6"></line><text fill="#000" x="-9" dy="0.32em">300</text></g><g class="tick" opacity="1" transform="translate(0,97.45198329853861)"><line stroke="#000" x2="-6"></line><text fill="#000" x="-9" dy="0.32em">350</text></g><g class="tick" opacity="1" transform="translate(0,59.87369519832987)"><line stroke="#000" x2="-6"></line><text fill="#000" x="-9" dy="0.32em">400</text></g><g class="tick" opacity="1" transform="translate(0,22.295407098121075)"><line stroke="#000" x2="-6"></line><text fill="#000" x="-9" dy="0.32em">450</text></g></g><rect x="1" transform="translate(0,356.9937369519833)" width="4" height="3.006263048016706" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(5,360)" width="4" height="0" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(10,360)" width="4" height="0" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(15,360)" width="4" height="0" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(20,360)" width="4" height="0" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(25,357.7453027139875)" width="4" height="2.254697286012515" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(30,359.2484342379958)" width="4" height="0.7515657620041907" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(35,360)" width="4" height="0" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(40,359.2484342379958)" width="4" height="0.7515657620041907" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(45,354.7390396659708)" width="4" height="5.260960334029221" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(50,357.7453027139875)" width="4" height="2.254697286012515" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(55,344.21711899791234)" width="4" height="15.782881002087663" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(60,355.49060542797497)" width="4" height="4.50939457202503" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(65,349.47807933194156)" width="4" height="10.521920668058442" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(70,326.9311064718163)" width="4" height="33.06889352818371" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(75,341.21085594989563)" width="4" height="18.78914405010437" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(80,332.1920668058455)" width="4" height="27.807933194154487" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(85,293.1106471816284)" width="4" height="66.8893528183716" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(90,332.9436325678497)" width="4" height="27.056367432150296" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(95,335.1983298538622)" width="4" height="24.80167014613778" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(100,248.76826722338205)" width="4" height="111.23173277661795" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(105,324.6764091858038)" width="4" height="35.32359081419622" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(110,289.3528183716075)" width="4" height="70.6471816283925" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(115,221.71189979123173)" width="4" height="138.28810020876827" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(120,314.90605427974947)" width="4" height="45.09394572025053" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(125,344.21711899791234)" width="4" height="15.782881002087663" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(130,199.91649269311065)" width="4" height="160.08350730688935" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(135,325.4279749478079)" width="4" height="34.57202505219209" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(140,222.46346555323592)" width="4" height="137.53653444676408" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(145,62.37995824634652)" width="4" height="297.6200417536535" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(150,311.1482254697286)" width="4" height="48.85177453027143" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(155,205.17745302713988)" width="4" height="154.82254697286012" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(160,293.1106471816284)" width="4" height="66.8893528183716" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(165,309.64509394572025)" width="4" height="50.35490605427975" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(170,17.286012526095988)" width="4" height="342.713987473904" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(175,329.1858037578288)" width="4" height="30.814196242171192" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(180,335.9498956158664)" width="4" height="24.05010438413359" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(185,157.07724425887264)" width="4" height="202.92275574112736" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(190,331.4405010438413)" width="4" height="28.559498956158677" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(195,283.34029227557414)" width="4" height="76.65970772442586" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(200,0)" width="4" height="360" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(205,322.42171189979126)" width="4" height="37.57828810020874" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(210,305.1356993736952)" width="4" height="54.86430062630478" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(215,198.4133611691023)" width="4" height="161.5866388308977" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(220,333.69519832985384)" width="4" height="26.304801670146162" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(225,260.7933194154489)" width="4" height="99.20668058455112" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(230,3.7578288100208965)" width="4" height="356.2421711899791" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(235,343.46555323590815)" width="4" height="16.534446764091854" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(240,328.4342379958246)" width="4" height="31.565762004175383" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(245,210.4384133611691)" width="4" height="149.5615866388309" style="fill: rgb(105, 179, 162);"></rect><rect x="1" transform="translate(250,353.2359081419624)" width="-1" height="6.764091858037602" style="fill: rgb(105, 179, 162);"></rect></g></svg></div>
+
+</div>
+      <br>
+      <div>
+        <h5>Steps:</h5>
+        <ul>
+          <br>
+          <li>The Html part of the code just creates a <code>div</code> that will be modified by d3 later on.</li>
+          <br>
+          <li>The first part of the javascript code set a <code>svg</code> area. It specify the chart size and its margin. <a href="https://www.d3-graph-gallery.com/graph/histogram_basic.html">Read more</a>.</li>
+          <br>
+          <li>A histogram displays the <u>distribution</u> of a numeric variable. So you basically need only one column in your input file. (see input <a href="https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv">here</a>)</li>
+          <br>
+          <li>This numeric variable is provided to the <code>d3.histogram()</code> function that will compute the binning and returns the coordinates of each bar.</li>
+          <br>
+          <li>These bars can thus be drawn using a classic <code>.append("rect")</code> approach.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+<!-- ================================================================================= -->
+
+
+
+
+<!-- ==================== CODE SECTION = WHERE THE CODE APPEARS ==================== -->
+<div class="col-lg-7 text-center .align-middle">
+
+<!-- ========= show html code ============== -->
+<aside style="position: -webkit-sticky; position: sticky; top: 120px">← Edit me! </aside>
+<pre class=" language-html"><code id="code" contenteditable="true" class=" language-html"><span class="token doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>utf-8<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+
+<span class="token comment">&lt;!-- Load d3.js --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>https://d3js.org/d3.v4.js<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token comment">&lt;!-- Create a div where the graph will take place --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>my_dataviz<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+
+</code></pre>
+<!-- ==================================== -->
+
+
+
+
+
+
+<!-- ========= show JS code ==============  -->
+<pre class=" language-js"><code id="codejs" contenteditable="true" class=" language-js"><span class="token operator">&lt;</span>script<span class="token operator">&gt;</span>
+
+<span class="token comment">// set the dimensions and margins of the graph</span>
+<span class="token keyword">var</span> margin <span class="token operator">=</span> <span class="token punctuation">{</span>top<span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">,</span> right<span class="token punctuation">:</span> <span class="token number">30</span><span class="token punctuation">,</span> bottom<span class="token punctuation">:</span> <span class="token number">30</span><span class="token punctuation">,</span> left<span class="token punctuation">:</span> <span class="token number">40</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    width <span class="token operator">=</span> <span class="token number">460</span> <span class="token operator">-</span> margin<span class="token punctuation">.</span>left <span class="token operator">-</span> margin<span class="token punctuation">.</span>right<span class="token punctuation">,</span>
+    height <span class="token operator">=</span> <span class="token number">400</span> <span class="token operator">-</span> margin<span class="token punctuation">.</span>top <span class="token operator">-</span> margin<span class="token punctuation">.</span>bottom<span class="token punctuation">;</span>
+
+<span class="token comment">// append the svg object to the body of the page</span>
+<span class="token keyword">var</span> svg <span class="token operator">=</span> d3<span class="token punctuation">.</span><span class="token function">select</span><span class="token punctuation">(</span><span class="token string">"#my_dataviz"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"svg"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">attr</span><span class="token punctuation">(</span><span class="token string">"width"</span><span class="token punctuation">,</span> width <span class="token operator">+</span> margin<span class="token punctuation">.</span>left <span class="token operator">+</span> margin<span class="token punctuation">.</span>right<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">attr</span><span class="token punctuation">(</span><span class="token string">"height"</span><span class="token punctuation">,</span> height <span class="token operator">+</span> margin<span class="token punctuation">.</span>top <span class="token operator">+</span> margin<span class="token punctuation">.</span>bottom<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"g"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">attr</span><span class="token punctuation">(</span><span class="token string">"transform"</span><span class="token punctuation">,</span>
+          <span class="token string">"translate("</span> <span class="token operator">+</span> margin<span class="token punctuation">.</span>left <span class="token operator">+</span> <span class="token string">","</span> <span class="token operator">+</span> margin<span class="token punctuation">.</span>top <span class="token operator">+</span> <span class="token string">")"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// get the data</span>
+d3<span class="token punctuation">.</span><span class="token function">csv</span><span class="token punctuation">(</span><span class="token string">"https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv"</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+  <span class="token comment">// X axis: scale and draw:</span>
+  <span class="token keyword">var</span> x <span class="token operator">=</span> d3<span class="token punctuation">.</span><span class="token function">scaleLinear</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">domain</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">]</span><span class="token punctuation">)</span>     <span class="token comment">// can use this instead of 1000 to have the max of data: d3.max(data, function(d) { return +d.price })</span>
+      <span class="token punctuation">.</span><span class="token function">range</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> 250<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  svg<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"g"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">attr</span><span class="token punctuation">(</span><span class="token string">"transform"</span><span class="token punctuation">,</span> <span class="token string">"translate(0,"</span> <span class="token operator">+</span> height <span class="token operator">+</span> <span class="token string">")"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>d3<span class="token punctuation">.</span><span class="token function">axisBottom</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// set the parameters for the histogram</span>
+  <span class="token keyword">var</span> histogram <span class="token operator">=</span> d3<span class="token punctuation">.</span><span class="token function">histogram</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">value</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>d<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> d<span class="token punctuation">.</span>price<span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>   <span class="token comment">// I need to give the vector of value</span>
+      <span class="token punctuation">.</span><span class="token function">domain</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span><span class="token function">domain</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment">// then the domain of the graphic</span>
+      <span class="token punctuation">.</span><span class="token function">thresholds</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span><span class="token function">ticks</span><span class="token punctuation">(</span><span class="token number">70</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// then the numbers of bins</span>
+
+  <span class="token comment">// And apply this function to data to get the bins</span>
+  <span class="token keyword">var</span> bins <span class="token operator">=</span> <span class="token function">histogram</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Y axis: scale and draw:</span>
+  <span class="token keyword">var</span> y <span class="token operator">=</span> d3<span class="token punctuation">.</span><span class="token function">scaleLinear</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">range</span><span class="token punctuation">(</span><span class="token punctuation">[</span>height<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      y<span class="token punctuation">.</span><span class="token function">domain</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> d3<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>bins<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>d<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> d<span class="token punctuation">.</span>length<span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// d3.hist has to be called before the Y axis obviously</span>
+  svg<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"g"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>d3<span class="token punctuation">.</span><span class="token function">axisLeft</span><span class="token punctuation">(</span>y<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// append the bar rectangles to the svg element</span>
+  svg<span class="token punctuation">.</span><span class="token function">selectAll</span><span class="token punctuation">(</span><span class="token string">"rect"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">data</span><span class="token punctuation">(</span>bins<span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">enter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"rect"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">attr</span><span class="token punctuation">(</span><span class="token string">"x"</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">attr</span><span class="token punctuation">(</span><span class="token string">"transform"</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>d<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token string">"translate("</span> <span class="token operator">+</span> <span class="token function">x</span><span class="token punctuation">(</span>d<span class="token punctuation">.</span>x0<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">","</span> <span class="token operator">+</span> <span class="token function">y</span><span class="token punctuation">(</span>d<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">")"</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">attr</span><span class="token punctuation">(</span><span class="token string">"width"</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>d<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token function">x</span><span class="token punctuation">(</span>d<span class="token punctuation">.</span>x1<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token function">x</span><span class="token punctuation">(</span>d<span class="token punctuation">.</span>x0<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">attr</span><span class="token punctuation">(</span><span class="token string">"height"</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>d<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> height <span class="token operator">-</span> <span class="token function">y</span><span class="token punctuation">(</span>d<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">style</span><span class="token punctuation">(</span><span class="token string">"fill"</span><span class="token punctuation">,</span> <span class="token string">"#69b3a2"</span><span class="token punctuation">)</span>
+
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span></code></pre>
+<!-- ==================================== -->
+
+
+
+
+
+
+
+<!-- ==================== JAVASCRIPT SECTION : EXECUTE THIS CODE AND MAKE IT INTERACTIVE ==================== -->
+<script>
+// At the beginning, I read the html and JS fragments
+myHtmlParser('code', 'result')
+myJSParser('codejs', 'result')
+
+// If the user change the JS fragment, I run it again:
+document.getElementById('codejs').addEventListener("input", function() {
+d3.select('#result').html("");
+myHtmlParser('code', 'result');
+myJSParser('codejs', 'result');
+})
+
+// If the user change the HTML fragment, I run it again:
+document.getElementById('code').addEventListener("input", function() {
+d3.select('#result').html("");
+myHtmlParser('code', 'result');
+myJSParser('codejs', 'result');
+})
+</script>
+
+</div>
+
+
+  </div>
+</div>
+</section><div class="google-auto-placed" style="width: 100%; height: auto; clear: both; text-align: center;"><ins data-ad-format="auto" class="adsbygoogle adsbygoogle-noablate" data-ad-client="ca-pub-3523953066677938" data-adsbygoogle-status="done" style="display: block; margin: 10px auto; background-color: transparent; height: 280px;"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:661px;background-color:transparent;"><ins id="aswift_1_anchor" style="display: block; border: none; height: 280px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 661px; background-color: transparent; overflow: visible;"><iframe id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;border:0;width:661px;height:280px;" sandbox="allow-forms allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="661" height="280" frameborder="0" src="./Basic histogram in d3_files/ads(1).html" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" data-google-container-id="a!1" data-google-query-id="CLGovZualeoCFQWflgodHCQHMQ" data-load-complete="true"></iframe></ins></ins></ins></div>
+<br>
+
+
+<!-- ============================ -->
+
+
+
+
+
+
+
+
+<!-- ============================ RELATED BLOCKS ============================ -->
+
+<section class="bg-light" style="padding-top: 70px; padding-bottom: 70px; height: auto !important;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 text-center align-self-center">
+        <h3 class="text-uppercase">Related blocks  →</h3>
+      </div>
+      <div class="col-lg-5">
+        <ul>
+          <li><i>Simple histogram using v4 - </i>by <a href="https://bl.ocks.org/d3noob/96b74d0bd6d11427dd797892551a103c">d3Noob</a></li>
+          <br>
+          <li><i>Histogram section - </i>by <a href="https://www.d3-graph-gallery.com/histogram.html">the D3 graph gallery</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+<div class="google-auto-placed" style="width: 100%; height: auto; clear: both; text-align: center;"><ins data-ad-format="auto" class="adsbygoogle adsbygoogle-noablate" data-ad-client="ca-pub-3523953066677938" data-adsbygoogle-status="done" style="display: block; margin: 10px auto; background-color: transparent; height: 280px;"><ins id="aswift_2_expand" style="display:inline-table;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:661px;background-color:transparent;"><ins id="aswift_2_anchor" style="display: block; border: none; height: 280px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 661px; background-color: transparent; overflow: visible;"><iframe id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;border:0;width:661px;height:280px;" sandbox="allow-forms allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="661" height="280" frameborder="0" src="./Basic histogram in d3_files/ads(2).html" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" data-google-container-id="a!2" data-google-query-id="CLT3vZualeoCFRRClgodVI0IJA" data-load-complete="true"></iframe></ins></ins></ins></div></section>
+
+
+
+
+
+
+
+
+
+
+<!-- ============================ CONTACT SECTION ============================ -->
+
+  <!-- ANCHOR -->
+  <a name="contactanchor"></a>
+
+
+<section id="contact" class="bg" style="background-color: white; height: auto !important;"><div class="container">
+  <div class="row">
+    <div class="col-lg-2 text-center"></div>
+    <div class="col-lg-8 text-center">
+      <br><br><br>
+      <h2 class="section-heading text-uppercase" style="color: black">Contact</h2>
+      <p>This document is a work by <a href="https://www.yan-holtz.com/">Yan Holtz</a>. Any feedback is highly encouraged. You can fill an issue on <a href="https://github.com/holtzy/D3-graph-gallery/issues">Github</a>, drop me a message on <a href="https://twitter.com/R_Graph_Gallery">Twitter</a>, or send an email pasting <a href="https://www.d3-graph-gallery.com/graph/histogram_basic.html">yan.holtz.data</a> with <a href="https://www.d3-graph-gallery.com/graph/histogram_basic.html">gmail.com</a>.</p>
+      <div style="text-align:center">
+         <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="https://github.com/holtzy/D3-graph-gallery">Github</a>
+         <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="https://twitter.com/R_Graph_Gallery">Twitter</a>
+       </div>
+    </div>
+  </div>
+</div><div class="google-auto-placed" style="width: 100%; height: auto; clear: both; text-align: center;"><ins data-ad-format="auto" class="adsbygoogle adsbygoogle-noablate" data-ad-client="ca-pub-3523953066677938" data-adsbygoogle-status="done" style="display: block; margin: 10px auto; background-color: transparent; height: 280px;"><ins id="aswift_3_expand" style="display:inline-table;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:661px;background-color:transparent;"><ins id="aswift_3_anchor" style="display: block; border: none; height: 280px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 661px; background-color: transparent; overflow: visible;"><iframe id="aswift_3" name="aswift_3" style="left:0;position:absolute;top:0;border:0;width:661px;height:280px;" sandbox="allow-forms allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="661" height="280" frameborder="0" src="./Basic histogram in d3_files/ads(3).html" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" data-google-container-id="a!3" data-google-query-id="CIubgLCbleoCFUQxlgodGQMOeQ" data-load-complete="true"></iframe></ins></ins></ins></div>
+</section>
+
+<!-- THIS ALLOWS TO INSERT THE CONTACT CHUNK THAT IS STORED IN A CONTACT.HTML FILE-->
+<script>
+$(function(){
+  $("#contact").load("../html_chunk/contact.html");
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<!-- ============================ FOOTER SECTION ============================ -->
+<footer class="bg-light" id="myFooter"><div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <span class="copyright">Copyright © the d3 graph gallery 2018</span>
+    </div>
+    <div class="col-md-4">
+      <ul class="list-inline social-buttons">
+        <li class="list-inline-item">
+          <a href="https://twitter.com/R_Graph_Gallery">
+            <i class="fa fa-twitter"></i>
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a href="https://github.com/holtzy">
+            <i class="fa fa-github"></i>
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a href="https://www.linkedin.com/in/yan-holtz-2477534a/">
+            <i class="fa fa-linkedin"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-4">
+      <ul class="list-inline quicklinks">
+        <li class="list-inline-item">
+          <a href="https://www.d3-graph-gallery.com/graph/histogram_basic.html#">Privacy Policy</a>
+        </li>
+        <li class="list-inline-item">
+          <a href="https://www.d3-graph-gallery.com/graph/histogram_basic.html#">Terms of Use</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+</footer>
+
+<!-- THIS ALLOWS TO INSERT THE FOOTER THAT IS STORED IN A FOOTER.HTML FILE-->
+<script>
+$(function(){
+  $("#myFooter").load("../html_chunk/footer.html");
+});
+</script>
+
+<!-- ============================ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ============================ JAVASCRIPT SECTION ============================ -->
+
+<!-- Bootstrap core JavaScript -->
+<script src="./Basic histogram in d3_files/bootstrap.bundle.min.js.ダウンロード"></script>
+
+<!-- Custom scripts for this template -->
+<script src="./Basic histogram in d3_files/agency.min.js.ダウンロード"></script>
+
+<!-- Activate the bootstrap tooltip, must be after jQuery load -->
+<script>
+  $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
+
+
+<!-- Function to download the content of the div -->
+<script>
+function download(){
+    var a = document.body.appendChild(
+        document.createElement("a")
+    );
+    a.download = "export.html";
+    var command = document.getElementById('code').innerHTML;
+    command = command.replace(/<\/?span[^>]*>/g,"");
+    a.href = "data:html" + command
+    a.click(); // Trigger a click on the element
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+<iframe id="google_osd_static_frame_5529788560356" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;" src="./Basic histogram in d3_files/saved_resource(3).html"></iframe></body><iframe id="google_esf" name="google_esf" src="./Basic histogram in d3_files/zrt_lookup.html" data-ad-client="ca-pub-3523953066677938" style="display: none;"></iframe></html>
