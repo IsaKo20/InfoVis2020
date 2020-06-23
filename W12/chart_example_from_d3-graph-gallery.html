@@ -26,7 +26,7 @@ var svg = d3.select("#my_dataviz")
           "translate(" + margin.left + "," + margin.top + ")");
 
 // get the data
-d3.csv("https://raw.githubusercontent.com/IsaKo20/InfoVis2020/master/W12/infected.csv", function(data) {
+d3.csv("https://raw.githubusercontent.com/IsaKo20/InfoVis2020/master/W12/temp.csv", function(data) {
 
   // X axis: scale and draw:
   var x = d3.scaleLinear()
@@ -38,7 +38,7 @@ d3.csv("https://raw.githubusercontent.com/IsaKo20/InfoVis2020/master/W12/infecte
 
   // set the parameters for the histogram
   var histogram = d3.histogram()
-      .value(function(d) { return d.people; })   // I need to give the vector of value
+      .value(function(d) { return d.temperature; })   // I need to give the vector of value
       .domain(x.domain())  // then the domain of the graphic
       .thresholds(x.ticks(10)); // then the numbers of bins
 
