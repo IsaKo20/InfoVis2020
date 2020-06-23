@@ -30,7 +30,7 @@ d3.csv("https://raw.githubusercontent.com/IsaKo20/InfoVis2020/master/W12/temp.cs
 
   // X axis: scale and draw:
   var x = d3.scaleLinear()
-      .domain([0, 50])     // can use this instead of 1000 to have the max of data: d3.max(data, function(d) { return +d.price })
+      .domain([0, 30])     // can use this instead of 1000 to have the max of data: d3.max(data, function(d) { return +d.price })
       .range([0, width]);
   svg.append("g")
       .attr("transform", "translate(0," + height + ")")
@@ -40,7 +40,7 @@ d3.csv("https://raw.githubusercontent.com/IsaKo20/InfoVis2020/master/W12/temp.cs
   var histogram = d3.histogram()
       .value(function(d) { return d.temperature; })   // I need to give the vector of value
       .domain(x.domain())  // then the domain of the graphic
-      .thresholds(x.ticks(10)); // then the numbers of bins
+      .thresholds(x.ticks(70)); // then the numbers of bins
 
   // And apply this function to data to get the bins
   var bins = histogram(data);
